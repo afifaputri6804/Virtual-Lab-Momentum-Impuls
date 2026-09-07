@@ -1,318 +1,657 @@
 "use client";
 
-
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 
+export default function PhysicsSimulation() {
 
-export default function PhysicsSimulation(){
 
+  const [massaA, setMassaA] = useState(2);
+  const [kecepatanA, setKecepatanA] = useState(5);
 
 
-const [massa,setMassa] = useState(2);
+  const [massaB, setMassaB] = useState(3);
+  const [kecepatanB, setKecepatanB] = useState(-2);
 
-const [kecepatan,setKecepatan] = useState(5);
 
-const [momentum,setMomentum] = useState(0);
+  const [hasil, setHasil] = useState<any>(null);
 
 
+  const [animasi, setAnimasi] = useState(false);
 
 
 
+  function hitungTumbukan() {
 
 
-function hitungMomentum(){
+    setAnimasi(false);
 
 
-const hasil =
+    setTimeout(() => {
 
-Number(massa) *
+      setAnimasi(true);
 
-Number(kecepatan);
+    },100);
 
 
 
-setMomentum(hasil);
+    const m1 = Number(massaA);
+    const v1 = Number(kecepatanA);
 
 
+    const m2 = Number(massaB);
+    const v2 = Number(kecepatanB);
 
 
-localStorage.setItem(
 
-"dataEksperimen",
+    // Momentum awal
 
-JSON.stringify({
+    const momentumAwal =
+      (m1 * v1) +
+      (m2 * v2);
 
-massa,
 
-kecepatan,
 
-momentum:hasil,
+    // Kecepatan akhir tumbukan elastis
 
-status:"Selesai"
+    const v1Akhir =
+      (
+        ((m1 - m2) * v1)
+        +
+        (2 * m2 * v2)
 
-})
+      )
+      /
+      (m1 + m2);
 
-);
 
 
-}
+    const v2Akhir =
+      (
+        ((m2 - m1) * v2)
+        +
+        (2 * m1 * v1)
 
+      )
+      /
+      (m1 + m2);
 
 
 
+    // Momentum akhir
 
+    const momentumAkhir =
+      (m1 * v1Akhir)
+      +
+      (m2 * v2Akhir);
 
 
-function reset(){
 
+    const valid =
+      Math.abs(momentumAwal - momentumAkhir) < 0.01;
 
-setMassa(2);
 
-setKecepatan(5);
 
-setMomentum(0);
+    const data = {
 
 
+      massaA:m1,
 
-}
+      kecepatanA:v1,
 
 
+      massaB:m2,
 
+      kecepatanB:v2,
 
 
+      momentumAwal,
 
+      momentumAkhir,
 
 
-return (
+      kecepatanAkhirA:v1Akhir,
 
+      kecepatanAkhirB:v2Akhir,
 
-<div className="space-y-6">
 
+      status: valid
+      ?
+      "Hukum Kekekalan Momentum Terpenuhi"
+      :
+      "Perhitungan Tidak Sesuai"
 
 
+    };
 
 
 
+    setHasil(data);
 
-{/* INPUT */}
 
 
+    localStorage.setItem(
 
-<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      "dataEksperimen",
 
+      JSON.stringify(data)
 
+    );
 
 
+  }
 
-<div className="rounded-3xl bg-blue-50 p-6">
 
 
-<h3 className="text-xl font-bold text-blue-700">
 
-⚖️ Massa Benda
 
-</h3>
+  function reset(){
 
 
+    setMassaA(2);
 
-<input
+    setKecepatanA(5);
 
 
-type="number"
+    setMassaB(3);
 
+    setKecepatanB(-2);
 
-value={massa}
 
+    setHasil(null);
 
-onChange={(e)=>
 
-setMassa(Number(e.target.value))
+    setAnimasi(false);
 
-}
 
+  }
 
-className="mt-5 w-full rounded-xl border bg-white p-3"
 
 
-/>
 
 
-<p className="mt-2 text-gray-600">
+  return (
 
-Satuan: kg
 
-</p>
+    <div className="space-y-6">
 
 
-</div>
 
+      {/* INPUT BENDA */}
 
 
 
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 
 
 
+        <div className="rounded-3xl bg-blue-50 p-6">
 
 
-<div className="rounded-3xl bg-green-50 p-6">
+          <h3 className="text-xl font-bold text-blue-700">
 
+            🔵 Benda A
 
-<h3 className="text-xl font-bold text-green-700">
+          </h3>
 
-🏃 Kecepatan
 
-</h3>
 
+          <label className="mt-4 block">
 
+            Massa (kg)
 
-<input
+          </label>
 
 
-type="number"
 
+          <input
 
-value={kecepatan}
+            type="number"
 
+            value={massaA}
 
-onChange={(e)=>
+            onChange={(e)=>
+              setMassaA(Number(e.target.value))
+            }
 
-setKecepatan(Number(e.target.value))
+            className="mt-2 w-full rounded-xl border bg-white p-3"
 
-}
+          />
 
 
-className="mt-5 w-full rounded-xl border bg-white p-3"
 
+          <label className="mt-4 block">
 
-/>
+            Kecepatan (m/s)
 
+          </label>
 
 
-<p className="mt-2 text-gray-600">
 
-Satuan: m/s
+          <input
 
-</p>
+            type="number"
 
+            value={kecepatanA}
 
-</div>
+            onChange={(e)=>
+              setKecepatanA(Number(e.target.value))
+            }
 
+            className="mt-2 w-full rounded-xl border bg-white p-3"
 
+          />
 
 
 
+        </div>
 
-</div>
 
 
 
 
+        <div className="rounded-3xl bg-red-50 p-6">
 
 
+          <h3 className="text-xl font-bold text-red-700">
 
+            🔴 Benda B
 
+          </h3>
 
-{/* HASIL */}
 
 
+          <label className="mt-4 block">
 
-<div className="rounded-3xl bg-gradient-to-r from-indigo-50 to-blue-50 p-6 text-center">
+            Massa (kg)
 
+          </label>
 
-<h3 className="text-xl font-bold">
 
-Momentum
 
-</h3>
+          <input
 
+            type="number"
 
+            value={massaB}
 
-<p className="mt-4 text-5xl font-bold text-blue-700">
+            onChange={(e)=>
+              setMassaB(Number(e.target.value))
+            }
 
+            className="mt-2 w-full rounded-xl border bg-white p-3"
 
-{momentum}
+          />
 
 
-</p>
 
+          <label className="mt-4 block">
 
+            Kecepatan (m/s)
 
-<p className="mt-2">
+          </label>
 
-kg m/s
 
-</p>
 
+          <input
 
-</div>
+            type="number"
 
+            value={kecepatanB}
 
+            onChange={(e)=>
+              setKecepatanB(Number(e.target.value))
+            }
 
+            className="mt-2 w-full rounded-xl border bg-white p-3"
 
+          />
 
 
+        </div>
 
 
 
-{/* BUTTON */}
+      </div>
 
 
 
-<div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
 
 
+      {/* ANIMASI */}
 
-<button
 
 
-onClick={hitungMomentum}
+      <div className="rounded-3xl bg-gradient-to-r from-indigo-50 to-blue-50 p-8">
 
 
-className="rounded-xl bg-blue-600 px-8 py-3 font-bold text-white hover:bg-blue-700"
+        <h3 className="text-center text-xl font-bold">
 
+          🚀 Virtual Collision Lab
 
->
+        </h3>
 
-Hitung Momentum
 
-</button>
 
+        <div className="relative mt-8 h-36 overflow-hidden rounded-2xl bg-white">
 
 
 
+          <motion.div
 
 
-<button
+            animate={
 
+              animasi
 
-onClick={reset}
+              ?
 
+              {
+                x:120
+              }
 
-className="rounded-xl bg-gray-200 px-8 py-3 font-bold text-gray-700"
+              :
 
+              {
+                x:0
+              }
 
->
+            }
 
-Reset
 
-</button>
+            transition={
 
+              {
+                duration:1
+              }
 
+            }
 
 
-</div>
+            className="absolute left-10 top-10 text-5xl"
 
+          >
 
+            🔵
 
 
+          </motion.div>
 
 
 
-</div>
 
 
-);
+          <motion.div
+
+
+            animate={
+
+              animasi
+
+              ?
+
+              {
+                x:-120
+              }
+
+              :
+
+              {
+                x:0
+              }
+
+            }
+
+
+            transition={
+
+              {
+                duration:1
+              }
+
+            }
+
+
+            className="absolute right-10 top-10 text-5xl"
+
+          >
+
+            🔴
+
+
+          </motion.div>
+
+
+
+        </div>
+
+
+
+        <p className="mt-4 text-center text-gray-600">
+
+
+          {
+
+          animasi
+
+          ?
+
+          "💥 Tumbukan sedang berlangsung"
+
+          :
+
+          "Tekan Mulai Simulasi"
+
+          }
+
+
+        </p>
+
+
+
+      </div>
+
+
+
+
+
+
+      {/* HASIL */}
+
+
+
+      {
+
+      hasil &&
+
+      (
+
+      <div className="rounded-3xl bg-green-50 p-6">
+
+
+        <h3 className="text-xl font-bold text-green-700">
+
+          📊 Hasil Eksperimen
+
+        </h3>
+
+
+
+        <div className="mt-4 space-y-2">
+
+
+          <p>
+
+          Momentum Awal:
+
+          <b>
+
+          {" "}
+
+          {hasil.momentumAwal.toFixed(2)}
+
+          {" "}
+
+          kg m/s
+
+          </b>
+
+          </p>
+
+
+
+          <p>
+
+          Momentum Akhir:
+
+          <b>
+
+          {" "}
+
+          {hasil.momentumAkhir.toFixed(2)}
+
+          {" "}
+
+          kg m/s
+
+          </b>
+
+          </p>
+
+
+
+          <p>
+
+          Kecepatan akhir A:
+
+          <b>
+
+          {" "}
+
+          {hasil.kecepatanAkhirA.toFixed(2)}
+
+          {" "}
+
+          m/s
+
+          </b>
+
+          </p>
+
+
+
+          <p>
+
+          Kecepatan akhir B:
+
+          <b>
+
+          {" "}
+
+          {hasil.kecepatanAkhirB.toFixed(2)}
+
+          {" "}
+
+          m/s
+
+          </b>
+
+          </p>
+
+
+
+          <p className="mt-4 font-bold">
+
+
+          {
+
+          hasil.status ===
+          "Hukum Kekekalan Momentum Terpenuhi"
+
+          ?
+
+          "✅ Hukum Kekekalan Momentum Terpenuhi"
+
+          :
+
+          "❌ Periksa Perhitungan"
+
+          }
+
+
+          </p>
+
+
+
+        </div>
+
+
+      </div>
+
+
+      )
+
+      }
+
+
+
+
+
+      {/* BUTTON */}
+
+
+
+      <div className="flex justify-center gap-4">
+
+
+
+        <button
+
+
+          onClick={hitungTumbukan}
+
+
+          className="rounded-xl bg-blue-600 px-8 py-3 font-bold text-white hover:bg-blue-700"
+
+
+        >
+
+          Mulai Simulasi
+
+
+        </button>
+
+
+
+
+        <button
+
+
+          onClick={reset}
+
+
+          className="rounded-xl bg-gray-200 px-8 py-3 font-bold text-gray-700"
+
+
+        >
+
+          Reset
+
+
+        </button>
+
+
+
+      </div>
+
+
+
+
+    </div>
+
+
+  );
 
 
 }
