@@ -187,7 +187,7 @@ selesai
 
 
 
-<section className="mt-8 grid gap-6 md:grid-cols-2">
+<section className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-2">
 
 
 
