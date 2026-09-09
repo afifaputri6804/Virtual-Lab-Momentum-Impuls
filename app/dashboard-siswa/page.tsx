@@ -32,38 +32,30 @@ const [evaluasi,setEvaluasi] = useState(false);
 
 
 
-
 useEffect(()=>{
 
 
-const role =
-localStorage.getItem("role");
+const role = localStorage.getItem("role");
 
 
 
 if(!role){
 
-setLoading(false);
-
 router.replace("/login");
 
 return;
 
 }
-
 
 
 
 if(role !== "siswa"){
 
-setLoading(false);
-
 router.replace("/login");
 
 return;
 
 }
-
 
 
 
@@ -79,17 +71,10 @@ localStorage.getItem("nama")
 
 
 
-
-
-
 // CEK MATERI
 
-
 const materiStatus =
-localStorage.getItem(
-"materiSelesai"
-);
-
+localStorage.getItem("materiSelesai");
 
 
 if(materiStatus){
@@ -102,16 +87,10 @@ setMateri(true);
 
 
 
-
-
 // CEK EKSPERIMEN
 
-
 const dataEksperimen =
-localStorage.getItem(
-"dataEksperimen"
-);
-
+localStorage.getItem("dataEksperimen");
 
 
 if(dataEksperimen){
@@ -124,15 +103,10 @@ setEksperimen(true);
 
 
 
-
-
 // CEK EVALUASI
 
-
 const dataEvaluasi =
-localStorage.getItem(
-"dataSiswa"
-);
+localStorage.getItem("dataSiswa");
 
 
 
@@ -160,7 +134,6 @@ data.nilai || 0
 
 
 
-
 setLoading(false);
 
 
@@ -171,15 +144,10 @@ setLoading(false);
 
 
 
-
-
-
-
 if(loading){
 
 
 return (
-
 
 <main className="flex min-h-screen items-center justify-center bg-blue-50">
 
@@ -199,14 +167,10 @@ Loading MOMENTRACK...
 
 </main>
 
-
 );
 
 
 }
-
-
-
 
 
 
@@ -244,12 +208,10 @@ progress += 34;
 
 
 
-
 return (
 
 
 <main className="min-h-screen overflow-x-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-100 p-5 sm:p-8 lg:p-10">
-
 
 
 <section className="mx-auto w-full max-w-6xl">
@@ -258,9 +220,7 @@ return (
 
 
 
-
 {/* HEADER */}
-
 
 
 <div className="rounded-3xl bg-gradient-to-r from-blue-700 to-indigo-700 p-6 text-white shadow-xl sm:p-10">
@@ -282,7 +242,7 @@ Selamat datang di MOMENTRACK
 
 
 
-<p className="mt-2 text-sm text-blue-100 sm:text-base">
+<p className="mt-2 text-sm text-blue-100">
 
 Virtual Laboratory Momentum dan Impuls
 
@@ -291,8 +251,6 @@ Virtual Laboratory Momentum dan Impuls
 
 
 </div>
-
-
 
 
 
@@ -361,6 +319,186 @@ width:`${progress}%`
 </div>
 
 
+</section>
+
+
+
+
+
+
+
+
+
+{/* STATISTIK BELAJAR */}
+
+
+
+<section className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+
+
+<div className="rounded-3xl bg-white p-6 shadow-xl">
+
+
+<div className="text-4xl">
+
+📚
+
+</div>
+
+
+<h2 className="mt-4 text-xl font-bold text-blue-700">
+
+Materi
+
+</h2>
+
+
+<p className="mt-3 text-gray-600">
+
+{
+
+materi
+
+?
+
+"Selesai"
+
+:
+
+"Belum selesai"
+
+}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div className="rounded-3xl bg-white p-6 shadow-xl">
+
+
+<div className="text-4xl">
+
+🧪
+
+</div>
+
+
+<h2 className="mt-4 text-xl font-bold text-green-700">
+
+Eksperimen
+
+</h2>
+
+
+<p className="mt-3 text-gray-600">
+
+{
+
+eksperimen
+
+?
+
+"Selesai"
+
+:
+
+"Belum dilakukan"
+
+}
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div className="rounded-3xl bg-white p-6 shadow-xl">
+
+
+<div className="text-4xl">
+
+📝
+
+</div>
+
+
+<h2 className="mt-4 text-xl font-bold text-purple-700">
+
+Nilai
+
+</h2>
+
+
+<p className="mt-3 text-3xl font-bold text-purple-700">
+
+{nilai}
+
+/100
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div className="rounded-3xl bg-white p-6 shadow-xl">
+
+
+<div className="text-4xl">
+
+🏆
+
+</div>
+
+
+<h2 className="mt-4 text-xl font-bold text-yellow-700">
+
+Level
+
+</h2>
+
+
+<p className="mt-3 text-gray-600">
+
+{
+
+progress >= 80
+
+?
+
+"Ahli Fisika"
+
+:
+
+"Pembelajar"
+
+}
+
+
+</p>
+
+
+</div>
+
+
 
 </section>
 
@@ -377,8 +515,6 @@ width:`${progress}%`
 
 
 <section className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-
-
 
 
 
@@ -406,7 +542,6 @@ Pelajari konsep momentum dan impuls.
 </p>
 
 
-
 <Link
 
 href="/materi"
@@ -428,8 +563,6 @@ Buka
 
 
 
-
-
 <div className="rounded-3xl bg-white p-6 shadow-xl">
 
 
@@ -440,7 +573,6 @@ Buka
 </div>
 
 
-
 <h2 className="mt-4 text-xl font-bold text-green-700">
 
 Virtual Lab
@@ -448,13 +580,11 @@ Virtual Lab
 </h2>
 
 
-
 <p className="mt-3 text-gray-600">
 
 Melakukan simulasi eksperimen.
 
 </p>
-
 
 
 <Link
@@ -478,8 +608,6 @@ Mulai
 
 
 
-
-
 <div className="rounded-3xl bg-white p-6 shadow-xl">
 
 
@@ -490,7 +618,6 @@ Mulai
 </div>
 
 
-
 <h2 className="mt-4 text-xl font-bold text-purple-700">
 
 Evaluasi
@@ -498,13 +625,11 @@ Evaluasi
 </h2>
 
 
-
 <p className="mt-3 text-gray-600">
 
 Uji pemahaman materi.
 
 </p>
-
 
 
 <Link
@@ -528,8 +653,6 @@ Kerjakan
 
 
 
-
-
 <div className="rounded-3xl bg-white p-6 shadow-xl">
 
 
@@ -540,7 +663,6 @@ Kerjakan
 </div>
 
 
-
 <h2 className="mt-4 text-xl font-bold text-yellow-700">
 
 Sertifikat
@@ -548,13 +670,11 @@ Sertifikat
 </h2>
 
 
-
 <p className="mt-3 text-gray-600">
 
 Lihat hasil akhir pembelajaran.
 
 </p>
-
 
 
 <Link
@@ -574,10 +694,6 @@ Lihat
 
 
 
-
-
-
-
 </section>
 
 
@@ -592,10 +708,10 @@ Lihat
 
 
 
-<section className="mt-8 rounded-3xl bg-white p-6 shadow-xl sm:p-8">
+<section className="mt-8 rounded-3xl bg-white p-6 shadow-xl">
 
 
-<h2 className="text-xl font-bold sm:text-2xl">
+<h2 className="text-xl font-bold">
 
 🏆 Hasil Evaluasi
 
@@ -613,8 +729,7 @@ Nilai terakhir
 </p>
 
 
-
-<h3 className="mt-2 text-4xl font-bold text-blue-700 sm:text-5xl">
+<h3 className="mt-2 text-4xl font-bold text-blue-700">
 
 {nilai}
 
@@ -628,9 +743,7 @@ Nilai terakhir
 </h3>
 
 
-
 </div>
-
 
 
 </section>
@@ -647,15 +760,14 @@ Nilai terakhir
 
 
 
-<section className="mt-8 rounded-3xl bg-white p-6 shadow-xl sm:p-8">
+<section className="mt-8 rounded-3xl bg-white p-6 shadow-xl">
 
 
-<h2 className="text-xl font-bold sm:text-2xl">
+<h2 className="text-xl font-bold">
 
 ✅ Status Pembelajaran
 
 </h2>
-
 
 
 <div className="mt-5 space-y-3">
@@ -672,7 +784,6 @@ Nilai terakhir
 </p>
 
 
-
 <p>
 
 {eksperimen
@@ -682,7 +793,6 @@ Nilai terakhir
 "⏳ Virtual Lab belum selesai"}
 
 </p>
-
 
 
 <p>
@@ -696,14 +806,10 @@ Nilai terakhir
 </p>
 
 
-
 </div>
 
 
-
 </section>
-
-
 
 
 

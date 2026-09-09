@@ -32,7 +32,7 @@ export default function RootLayout({
 
   return (
 
-    <html lang="en">
+    <html lang="id">
 
 
       <body className="min-h-screen flex flex-col overflow-x-hidden">
