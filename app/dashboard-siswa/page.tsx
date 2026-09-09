@@ -13,7 +13,6 @@ export default function DashboardSiswa(){
 const router = useRouter();
 
 
-
 const [loading,setLoading] = useState(true);
 
 
@@ -71,7 +70,6 @@ localStorage.getItem("nama")
 
 
 
-// CEK MATERI
 
 const materiStatus =
 localStorage.getItem("materiSelesai");
@@ -87,8 +85,6 @@ setMateri(true);
 
 
 
-// CEK EKSPERIMEN
-
 const dataEksperimen =
 localStorage.getItem("dataEksperimen");
 
@@ -102,8 +98,6 @@ setEksperimen(true);
 
 
 
-
-// CEK EVALUASI
 
 const dataEvaluasi =
 localStorage.getItem("dataSiswa");
@@ -144,6 +138,8 @@ setLoading(false);
 
 
 
+
+
 if(loading){
 
 
@@ -171,6 +167,8 @@ Loading MOMENTRACK...
 
 
 }
+
+
 
 
 
@@ -208,6 +206,7 @@ progress += 34;
 
 
 
+
 return (
 
 
@@ -220,7 +219,10 @@ return (
 
 
 
+
+
 {/* HEADER */}
+
 
 
 <div className="rounded-3xl bg-gradient-to-r from-blue-700 to-indigo-700 p-6 text-white shadow-xl sm:p-10">
@@ -242,7 +244,7 @@ Selamat datang di MOMENTRACK
 
 
 
-<p className="mt-2 text-sm text-blue-100">
+<p className="mt-2 text-blue-100">
 
 Virtual Laboratory Momentum dan Impuls
 
@@ -258,11 +260,13 @@ Virtual Laboratory Momentum dan Impuls
 
 
 
+
+
 {/* PROGRESS */}
 
 
 
-<section className="mt-8 rounded-3xl bg-white p-6 shadow-xl sm:p-8">
+<section className="mt-8 rounded-3xl bg-white p-6 shadow-xl">
 
 
 <h2 className="text-xl font-bold sm:text-2xl">
@@ -304,14 +308,13 @@ Penyelesaian
 
 <div
 
-className="h-full rounded-full bg-blue-600 transition-all duration-700"
+className="h-full rounded-full bg-blue-600 transition-all"
 
 style={{
 
 width:`${progress}%`
 
 }}
-
 
 />
 
@@ -329,7 +332,7 @@ width:`${progress}%`
 
 
 
-{/* STATISTIK BELAJAR */}
+{/* STATISTIK */}
 
 
 
@@ -339,13 +342,7 @@ width:`${progress}%`
 
 <div className="rounded-3xl bg-white p-6 shadow-xl">
 
-
-<div className="text-4xl">
-
-📚
-
-</div>
-
+<div className="text-4xl">📚</div>
 
 <h2 className="mt-4 text-xl font-bold text-blue-700">
 
@@ -353,29 +350,13 @@ Materi
 
 </h2>
 
-
 <p className="mt-3 text-gray-600">
 
-{
-
-materi
-
-?
-
-"Selesai"
-
-:
-
-"Belum selesai"
-
-}
+{materi ? "Selesai" : "Belum selesai"}
 
 </p>
 
-
 </div>
-
-
 
 
 
@@ -383,13 +364,7 @@ materi
 
 <div className="rounded-3xl bg-white p-6 shadow-xl">
 
-
-<div className="text-4xl">
-
-🧪
-
-</div>
-
+<div className="text-4xl">🧪</div>
 
 <h2 className="mt-4 text-xl font-bold text-green-700">
 
@@ -397,29 +372,13 @@ Eksperimen
 
 </h2>
 
-
 <p className="mt-3 text-gray-600">
 
-{
-
-eksperimen
-
-?
-
-"Selesai"
-
-:
-
-"Belum dilakukan"
-
-}
+{eksperimen ? "Selesai" : "Belum dilakukan"}
 
 </p>
 
-
 </div>
-
-
 
 
 
@@ -427,13 +386,7 @@ eksperimen
 
 <div className="rounded-3xl bg-white p-6 shadow-xl">
 
-
-<div className="text-4xl">
-
-📝
-
-</div>
-
+<div className="text-4xl">📝</div>
 
 <h2 className="mt-4 text-xl font-bold text-purple-700">
 
@@ -441,19 +394,13 @@ Nilai
 
 </h2>
 
-
 <p className="mt-3 text-3xl font-bold text-purple-700">
 
-{nilai}
-
-/100
+{nilai}/100
 
 </p>
 
-
 </div>
-
-
 
 
 
@@ -461,13 +408,7 @@ Nilai
 
 <div className="rounded-3xl bg-white p-6 shadow-xl">
 
-
-<div className="text-4xl">
-
-🏆
-
-</div>
-
+<div className="text-4xl">🏆</div>
 
 <h2 className="mt-4 text-xl font-bold text-yellow-700">
 
@@ -475,26 +416,11 @@ Level
 
 </h2>
 
-
 <p className="mt-3 text-gray-600">
 
-{
-
-progress >= 80
-
-?
-
-"Ahli Fisika"
-
-:
-
-"Pembelajar"
-
-}
-
+{progress >= 80 ? "Ahli Fisika" : "Pembelajar"}
 
 </p>
-
 
 </div>
 
@@ -518,179 +444,67 @@ progress >= 80
 
 
 
-<div className="rounded-3xl bg-white p-6 shadow-xl">
+<Card
 
+icon="📘"
 
-<div className="text-5xl">
+title="Materi"
 
-📘
+desc="Pelajari konsep momentum dan impuls."
 
-</div>
+link="/materi"
 
+color="bg-blue-600"
 
-<h2 className="mt-4 text-xl font-bold text-blue-700">
+/>
 
-Materi
 
-</h2>
 
+<Card
 
-<p className="mt-3 text-gray-600">
+icon="🧪"
 
-Pelajari konsep momentum dan impuls.
+title="Virtual Lab"
 
-</p>
+desc="Melakukan simulasi eksperimen."
 
+link="/virtual-lab"
 
-<Link
+color="bg-green-600"
 
-href="/materi"
+/>
 
-className="mt-5 inline-block rounded-xl bg-blue-600 px-5 py-2 text-white"
 
->
 
-Buka
+<Card
 
-</Link>
+icon="📝"
 
+title="Evaluasi"
 
-</div>
+desc="Uji pemahaman materi."
 
+link="/evaluasi"
 
+color="bg-purple-600"
 
+/>
 
 
 
+<Card
 
-<div className="rounded-3xl bg-white p-6 shadow-xl">
+icon="🏆"
 
+title="Sertifikat"
 
-<div className="text-5xl">
+desc="Lihat hasil akhir pembelajaran."
 
-🧪
+link="/completion"
 
-</div>
+color="bg-yellow-500"
 
-
-<h2 className="mt-4 text-xl font-bold text-green-700">
-
-Virtual Lab
-
-</h2>
-
-
-<p className="mt-3 text-gray-600">
-
-Melakukan simulasi eksperimen.
-
-</p>
-
-
-<Link
-
-href="/virtual-lab"
-
-className="mt-5 inline-block rounded-xl bg-green-600 px-5 py-2 text-white"
-
->
-
-Mulai
-
-</Link>
-
-
-</div>
-
-
-
-
-
-
-
-<div className="rounded-3xl bg-white p-6 shadow-xl">
-
-
-<div className="text-5xl">
-
-📝
-
-</div>
-
-
-<h2 className="mt-4 text-xl font-bold text-purple-700">
-
-Evaluasi
-
-</h2>
-
-
-<p className="mt-3 text-gray-600">
-
-Uji pemahaman materi.
-
-</p>
-
-
-<Link
-
-href="/evaluasi"
-
-className="mt-5 inline-block rounded-xl bg-purple-600 px-5 py-2 text-white"
-
->
-
-Kerjakan
-
-</Link>
-
-
-</div>
-
-
-
-
-
-
-
-<div className="rounded-3xl bg-white p-6 shadow-xl">
-
-
-<div className="text-5xl">
-
-🏆
-
-</div>
-
-
-<h2 className="mt-4 text-xl font-bold text-yellow-700">
-
-Sertifikat
-
-</h2>
-
-
-<p className="mt-3 text-gray-600">
-
-Lihat hasil akhir pembelajaran.
-
-</p>
-
-
-<Link
-
-href="/completion"
-
-className="mt-5 inline-block rounded-xl bg-yellow-500 px-5 py-2 text-white"
-
->
-
-Lihat
-
-</Link>
-
-
-</div>
+/>
 
 
 
@@ -704,7 +518,7 @@ Lihat
 
 
 
-{/* NILAI */}
+{/* HASIL EVALUASI */}
 
 
 
@@ -716,7 +530,6 @@ Lihat
 🏆 Hasil Evaluasi
 
 </h2>
-
 
 
 <div className="mt-5 rounded-2xl bg-blue-50 p-6">
@@ -731,14 +544,7 @@ Nilai terakhir
 
 <h3 className="mt-2 text-4xl font-bold text-blue-700">
 
-{nilai}
-
-<span className="text-xl">
-
-/100
-
-</span>
-
+{nilai}/100
 
 </h3>
 
@@ -774,36 +580,120 @@ Nilai terakhir
 
 
 <p>
+{materi ? "✅ Materi selesai" : "⏳ Materi belum selesai"}
+</p>
+
+
+<p>
+{eksperimen ? "✅ Virtual Lab selesai" : "⏳ Virtual Lab belum selesai"}
+</p>
+
+
+<p>
+{evaluasi ? "✅ Evaluasi selesai" : "⏳ Evaluasi belum selesai"}
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+{/* AKTIVITAS TERAKHIR */}
+
+
+
+<section className="mt-8 rounded-3xl bg-white p-6 shadow-xl">
+
+
+<h2 className="text-xl font-bold sm:text-2xl">
+
+📌 Aktivitas Terakhir
+
+</h2>
+
+
+
+<div className="mt-5 space-y-4">
+
+
+
+<div className="rounded-2xl bg-blue-50 p-4">
+
+<p className="font-bold text-blue-700">
+
+📚 Materi Momentum
+
+</p>
+
+<p className="mt-1 text-gray-600">
 
 {materi
 ?
-"✅ Materi selesai"
+"✅ Materi sudah dipelajari"
 :
 "⏳ Materi belum selesai"}
 
 </p>
 
+</div>
 
-<p>
+
+
+
+
+<div className="rounded-2xl bg-green-50 p-4">
+
+<p className="font-bold text-green-700">
+
+🧪 Virtual Lab
+
+</p>
+
+<p className="mt-1 text-gray-600">
 
 {eksperimen
 ?
-"✅ Virtual Lab selesai"
+"✅ Eksperimen tumbukan telah dilakukan"
 :
-"⏳ Virtual Lab belum selesai"}
+"⏳ Belum melakukan eksperimen"}
 
 </p>
 
+</div>
 
-<p>
+
+
+
+
+<div className="rounded-2xl bg-purple-50 p-4">
+
+<p className="font-bold text-purple-700">
+
+📝 Evaluasi
+
+</p>
+
+<p className="mt-1 text-gray-600">
 
 {evaluasi
 ?
-"✅ Evaluasi selesai"
+`✅ Nilai terakhir ${nilai}/100`
 :
-"⏳ Evaluasi belum selesai"}
+"⏳ Evaluasi belum dikerjakan"}
 
 </p>
+
+</div>
+
 
 
 </div>
@@ -820,6 +710,84 @@ Nilai terakhir
 
 </main>
 
+
+);
+
+
+}
+
+
+
+
+
+
+function Card({
+
+icon,
+
+title,
+
+desc,
+
+link,
+
+color
+
+}:{
+
+icon:string;
+
+title:string;
+
+desc:string;
+
+link:string;
+
+color:string;
+
+}){
+
+
+return (
+
+<div className="rounded-3xl bg-white p-6 shadow-xl">
+
+
+<div className="text-5xl">
+
+{icon}
+
+</div>
+
+
+<h2 className="mt-4 text-xl font-bold">
+
+{title}
+
+</h2>
+
+
+<p className="mt-3 text-gray-600">
+
+{desc}
+
+</p>
+
+
+<Link
+
+href={link}
+
+className={`mt-5 inline-block rounded-xl px-5 py-2 text-white ${color}`}
+
+>
+
+Buka
+
+</Link>
+
+
+</div>
 
 );
 
