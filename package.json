@@ -10,12 +10,15 @@
     "postinstall": "prisma skills sync || exit 0"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "^1.0.1",
     "@prisma/client": "^6.19.0",
+    "chart.js": "^4.5.1",
     "framer-motion": "^13.2.0",
     "matter-js": "^0.20.0",
     "next": "16.3.4",
     "prisma": "^6.19.0",
     "react": "19.2.8",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "19.2.8",
     "recharts": "^3.10.1"
   },
